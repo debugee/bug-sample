@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 4.1.2)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
@@ -33,95 +33,117 @@ target_include_directories(sample PRIVATE test/C)
 
 target_include_directories(sample SYSTEM PRIVATE test/E)
 
-target_compile_options(sample PRIVATE -I${CMAKE_CURRENT_SOURCE_DIR}/test/D)
+target_compile_options(sample PRIVATE -I${CMAKE_CURRENT_SOURCE_DIR}/test/D -iframework${CMAKE_CURRENT_SOURCE_DIR}/test/G -isystem${CMAKE_CURRENT_SOURCE_DIR}/test/F)
 
-# clang -v 
+# build] clang -cc1 version 17.0.0 (clang-1700.3.19.1) default target x86_64-apple-darwin24.6.0
+# [build] ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"
+# [build] ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
+# [build] #include "..." search starts here:
+# [build] #include <...> search starts here:
 # [build]  /Users/admin/Desktop/bug-sample/test/A
 # [build]  /Users/admin/Desktop/bug-sample/test/B (framework directory)
 # [build]  /Users/admin/Desktop/bug-sample/test/C
 # [build]  /Users/admin/Desktop/bug-sample/test/D
+# [build]  /usr/local/include
 # [build]  /Users/admin/Desktop/bug-sample/test/E
+# [build]  /Users/admin/Desktop/bug-sample/test/F
 # [build]  /Users/admin/Desktop/bug-sample/build (framework directory)
-# [build]  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1
-# [build]  /Library/Developer/CommandLineTools/usr/lib/clang/16/include
-# [build]  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include
-# [build]  /Library/Developer/CommandLineTools/usr/include
-# [build]  /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/System/Library/Frameworks (framework directory)
+# [build]  /Users/admin/Desktop/bug-sample/test/G (framework directory)
+# [build]  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1
+# [build]  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include
+# [build]  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include
+# [build]  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+# [build]  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
+# [build]  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)
+# [build] End of search list.
 
-# cmake fileapi
-# {
-#   "compileCommandFragments" : 
-#   [
-#     {
-#       "fragment" : "-g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6"
-#     },
-#     {
-#       "backtrace" : 3,
-#       "fragment" : "-v"
-#     },
-#     {
-#       "backtrace" : 4,
-#       "fragment" : "-I/Users/admin/Desktop/bug-sample/test/D"
-#     }
-#   ],
-#   "frameworks" : 
-#   [
-#     {
-#       "backtrace" : 6,
-#       "path" : "/Users/admin/Desktop/bug-sample/test/B/b.framework"
-#     },
-#     {
-#       "isSystem" : true,
-#       "path" : "/Users/admin/Desktop/bug-sample/build/dynamicFramework.framework"
-#     }
-#   ],
-#   "includes" : 
-#   [
-#     {
-#       "backtrace" : 5,
-#       "path" : "/Users/admin/Desktop/bug-sample/test/A"
-#     },
-#     {
-#       "backtrace" : 7,
-#       "path" : "/Users/admin/Desktop/bug-sample/test/C"
-#     },
-#     {
-#       "backtrace" : 8,
-#       "isSystem" : true,
-#       "path" : "/Users/admin/Desktop/bug-sample/test/E"
-#     }
-#   ]
-# }
 
-#cmake-tools configurations
+# -------- Diagnostics - 2025/11/6 15:33:17
+# Version: 1.29.0
+# Current Configuration:
 # {
-#   "uri": "file:///Users/admin/Desktop/bug-sample/sample.cpp",
-#   "configuration": {
+#     "name": "Mac",
 #     "includePath": [
-#       "/Users/admin/Desktop/bug-sample/test/A",
-#       "/Users/admin/Desktop/bug-sample/test/C",
-#       "/Users/admin/Desktop/bug-sample/test/E",
-#       "/Users/admin/Desktop/bug-sample/test/B",
-#       "/Users/admin/Desktop/bug-sample/build"
+#         "/Users/admin/Desktop/bug-sample/**"
 #     ],
 #     "defines": [],
+#     "cStandard": "c17",
+#     "cppStandard": "c++14",
+#     "intelliSenseMode": "macos-clang-x64",
+#     "intelliSenseModeIsExplicit": false,
+#     "cStandardIsExplicit": false,
+#     "cppStandardIsExplicit": false,
+#     "mergeConfigurations": false,
+#     "recursiveIncludes": {},
+#     "recursiveIncludesReduceIsExplicit": false,
+#     "recursiveIncludesPriorityIsExplicit": false,
+#     "recursiveIncludesOrderIsExplicit": false,
+#     "compilerPath": "/usr/bin/clang++",
+#     "compilerPathIsExplicit": true,
+#     "configurationProvider": "ms-vscode.cmake-tools",
+#     "browse": {
+#         "limitSymbolsToIncludedHeaders": true
+#     }
+# }
+# Modified Settings:
+# {
+#     "C_Cpp.default.compilerPath": "/usr/bin/clang++"
+# }
+# Additional Tracked Settings:
+# {
+#     "editorTabSize": 4,
+#     "editorInsertSpaces": true,
+#     "editorAutoClosingBrackets": "languageDefined",
+#     "filesEncoding": "utf8",
+#     "filesAssociations": {
+#         "*.cpp": "cpp",
+#         "*.qrc": "xml"
+#     },
+#     "filesExclude": {
+#         "**/.git": true,
+#         "**/.svn": true,
+#         "**/.hg": true,
+#         "**/.DS_Store": true,
+#         "**/Thumbs.db": true
+#     },
+#     "filesAutoSaveAfterDelay": false,
+#     "editorInlayHintsEnabled": true,
+#     "editorParameterHintsEnabled": true,
+#     "searchExclude": {
+#         "**/node_modules": true,
+#         "**/bower_components": true,
+#         "**/*.code-search": true
+#     },
+#     "workbenchSettingsEditor": "ui"
+# }
+# Custom browse configuration: 
+# {
+#     "browsePath": [
+#         "/Users/admin/Desktop/bug-sample",
+#         "/Users/admin/Desktop/bug-sample/test/A",
+#         "/Users/admin/Desktop/bug-sample/test/C",
+#         "/Users/admin/Desktop/bug-sample/test/E",
+#         "/Users/admin/Desktop/bug-sample/test/B",
+#         "/Users/admin/Desktop/bug-sample/build"
+#     ],
 #     "compilerPath": "/usr/bin/clang++",
 #     "compilerArgs": [],
 #     "compilerFragments": [
-#       "-g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk -mmacosx-version-min=14.6",
-#       "-v",
-#       "-I/Users/admin/Desktop/bug-sample/test/D"
+#         "-g",
+#         "-v",
+#         "-I/Users/admin/Desktop/bug-sample/test/D",
+#         "-iframework/Users/admin/Desktop/bug-sample/test/G",
+#         "-isystem/Users/admin/Desktop/bug-sample/test/F"
 #     ]
-#   }
 # }
-
-#cpptools configurations
+# cpptools version (native): 1.29.0.0
+# Current database path: /Users/admin/Library/Caches/vscode-cpptools/685053b2341a791a38afa23bb515c719/.browse.VC.db
 # Translation Unit Mappings:
 # [ /Users/admin/Desktop/bug-sample/sample.cpp - source TU]:
 # Translation Unit Configurations:
 # [ /Users/admin/Desktop/bug-sample/sample.cpp ]
-#     Process ID: 15372
-#     Memory Usage: 200 MB
+#     Process ID: 22269
+#     Memory Usage: 168 MB
 #     Compiler Path: /usr/bin/clang++
 #     Include paths:
 #         include: /Users/admin/Desktop/bug-sample/test/A
@@ -129,20 +151,24 @@ target_compile_options(sample PRIVATE -I${CMAKE_CURRENT_SOURCE_DIR}/test/D)
 #         include: /Users/admin/Desktop/bug-sample/test/E
 #         include: /Users/admin/Desktop/bug-sample/test/B
 #         include: /Users/admin/Desktop/bug-sample/build
+#         framework search path: /Users/admin/Desktop/bug-sample/build
 #         include: /Users/admin/Desktop/bug-sample/test/D
-#         system include: /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include/c++/v1
-#         system include: /Library/Developer/CommandLineTools/usr/lib/clang/16/include
-#         system include: /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/usr/include
-#         system include: /Library/Developer/CommandLineTools/usr/include
-#         system framework search path (default): /Library/Developer/CommandLineTools/SDKs/MacOSX15.2.sdk/System/Library/Frameworks
-#     Standard Version: c++17
+#         system include (isystem): /Users/admin/Desktop/bug-sample/test/F
+#         system include: /usr/local/include
+#         system include: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1
+#         system include: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include
+#         system include: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include
+#         system include: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
+#         system framework search path (default): /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
+#         system framework search path (default): /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks
+#     Standard Version: c++14
 #     IntelliSense Mode: macos-clang-x64
 #     Other Flags:
 #         --clang
-#         --clang_version=170006
-# Total Memory Usage: 200 MB
+#         --clang_version=190104
+# Total Memory Usage: 168 MB
 
+# ------- Workspace parsing diagnostics -------
+# Number of files discovered (not excluded): 12262
+# Number of files parsed: 2342
 
-
-#1、priority information lost !!!
-#2、framework directories are treated as normal include directories !!!
