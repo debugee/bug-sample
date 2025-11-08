@@ -21,19 +21,20 @@ set_target_properties(dynamicFramework PROPERTIES
 
 #when dynamicFramework is framework target, cmake will add -F<path_to_dynamicFramework> to sample CXX_INCLUDES
 #when SYSTEM is TRUE, cmake will add -iframework <path_to_dynamicFramework> to sample CXX_INCLUDES
-target_link_libraries(sample PRIVATE dynamicFramework)
+#target_link_libraries(sample PRIVATE dynamicFramework)
 
-target_compile_options(sample PRIVATE -v)
+#target_compile_options(sample PRIVATE -v)
 
-target_include_directories(sample PRIVATE test/A)
+#target_include_directories(sample PRIVATE test/A)
 
-target_include_directories(sample PRIVATE test/B/b.framework)
+#target_include_directories(sample PRIVATE test/B)
 
-target_include_directories(sample PRIVATE test/C)
+#target_include_directories(sample PRIVATE test/C)
 
-target_include_directories(sample SYSTEM PRIVATE test/E)
+#target_include_directories(sample SYSTEM PRIVATE test/E)
 
-target_compile_options(sample PRIVATE -I${CMAKE_CURRENT_SOURCE_DIR}/test/D -iframework${CMAKE_CURRENT_SOURCE_DIR}/test/G -isystem${CMAKE_CURRENT_SOURCE_DIR}/test/F)
+target_include_directories(sample PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/build)
+# target_compile_options(sample PRIVATE -iframework${CMAKE_CURRENT_SOURCE_DIR}/build -isystem${CMAKE_CURRENT_SOURCE_DIR}/test/F -I${CMAKE_CURRENT_SOURCE_DIR}/test/D)
 
 # build] clang -cc1 version 17.0.0 (clang-1700.3.19.1) default target x86_64-apple-darwin24.6.0
 # [build] ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"
